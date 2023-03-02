@@ -1,0 +1,1 @@
+<view><my-search bind:click="__e" vue-id="1da55560-1" data-event-opts="{{[['^click',[['gotoSearch']]]]}}" bind:__l="__l"></my-search></view>

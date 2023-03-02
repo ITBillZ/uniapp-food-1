@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "my-food": "/uni_modules/my-food/components/my-food/my-food"
+  }
+}

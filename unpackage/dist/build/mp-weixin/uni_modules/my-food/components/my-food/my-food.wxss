@@ -1,0 +1,1 @@
+.food-item{display:flex;padding:10px 5px;border-bottom:1px solid #dfdfdf}.food-item .food-item-left{margin-right:5px}.food-item .food-item-left .food-pic{width:120px;display:block}.food-item .food-item-right .food-name{font-size:18px}

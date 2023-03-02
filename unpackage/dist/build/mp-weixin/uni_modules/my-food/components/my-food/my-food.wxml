@@ -1,0 +1,1 @@
+<view><view class="food-item"><view class="food-item-left"><image class="food-pic" src="{{food.img}}" mode="widthFix"></image></view><view class="food-item-right"><view class="food-name">{{food.title}}</view></view></view></view>
