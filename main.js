@@ -7,8 +7,8 @@ import { $http } from '@escook/request-miniprogram'
 uni.$http = $http
 
 // 请求的根路径
-$http.baseUrl = 'https://api-food.itbill.cn'
-// $http.baseUrl = 'http://localhost:8080'
+// $http.baseUrl = 'https://api-food.itbill.cn'
+$http.baseUrl = 'http://localhost:8101'
 
 // 请求拦截器
 $http.beforeRequest = function(options) {
