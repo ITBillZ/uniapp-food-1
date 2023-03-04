@@ -13,17 +13,17 @@
     data() {
       return {
         foodList: [],
-        total: 10
+        total: 10,
       }
     },
-    onLoad() {
-      this.getFoodList()
+    onLoad(options) {
+	  this.getFoodList(options)
     },
     methods: {
-      async getFoodList() {
+      async getFoodList(options) {
         const {
-          data: res
-        } = await uni.$http.get('/food/list')
+          data: res	
+        } = await uni.$http.get('/food/search', options)
         if (res.status !== 200)
           return uni.$showMsg()
         this.foodList = res.message

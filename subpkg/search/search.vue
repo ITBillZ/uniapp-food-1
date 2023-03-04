@@ -1,13 +1,17 @@
 <template>
   <view>
     <view class="search-box">
-      <uni-search-bar @input="input" :radius="100" :focus="true" cancelButton="none"></uni-search-bar>
+      <uni-search-bar @input="input" :radius="100" :focus="true" cancelButton="none" @confirm="confirm"></uni-search-bar>
     </view>
     <!-- 搜索建议列表 -->
     <view class="sugg-list" v-if="searchResults.length !== 0">
       <view class="sugg-item" v-for="(item, i) in searchResults" :key="i" @click="gotoDetail(item)">
         <view class="food-name">{{item.title}}</view>
-        <uni-icons type="arrowright" size="16"></uni-icons>
+		<view class="right-sugg-item">
+			<view class="cate">{{item.cate_1}}</view>
+			<view class="cate">{{item.cate_2}}</view>
+			<uni-icons type="arrowright" size="16"></uni-icons>
+		</view>
       </view>
     </view>
     
@@ -20,7 +24,7 @@
       </view>
       <!-- 列表区域 -->
       <view class="history-list">
-        <uni-tag :text="item" v-for="(item, i) in histories" :key="i" customStyle="margin-top:5px; margin-right: 5px;" @click="gotoFoodList(item)"/>
+        <uni-tag :text="kw" v-for="(kw, i) in histories" :key="i" customStyle="margin-top:5px; margin-right: 5px;" @click="gotoFoodList(kw)"/>
       </view>
     </view>
   </view>
@@ -54,13 +58,18 @@
           this.getSearchList()
         }, 500)
       },
+	  confirm(e) {
+		  // 按确定时，应该跳到商品列表页
+		  this.gotoFoodList(this.kw)
+	  },
+	  
       async getSearchList() {
         if (this.kw.length === 0) {
           this.searchResults = []
           return
         }
         
-        const {data: res} = await uni.$http.get('/food/search', {query: this.kw})
+        const {data: res} = await uni.$http.get('/food/search', {title: this.kw, cate: this.kw})
         if (res.status !== 200) return uni.$showMsg()
         this.searchResults = res.message
         
@@ -88,7 +97,7 @@
       },
       gotoFoodList(kw) {
         uni.navigateTo({
-          url: '/subpkg/food_list/food_list?query=' + kw
+          url: '/subpkg/food_list/food_list?title=' + kw + '&cate=' + kw
         })
       }
     },
@@ -126,6 +135,19 @@
         text-overflow: ellipsis; // ...
         margin-right: 3px;
       }
+	  
+	  .right-sugg-item {
+		  display: flex;
+		  justify-content: right;
+		  
+		  .cate {
+			  background-color: #dfdfdf;
+			  border-radius: 6px;
+			  margin-right: 10px;
+			  padding: 2px 4px;
+			  white-space: nowrap;
+		  }
+	  }
     }
   }
   

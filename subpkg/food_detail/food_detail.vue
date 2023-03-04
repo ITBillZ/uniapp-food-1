@@ -8,7 +8,7 @@
 				<uni-list-item :title="'名称：' + food.title"></uni-list-item>
 				<uni-list-item :title="'生产时间：' + food.prod_time"></uni-list-item>
 				<uni-list-item :title="'有效期(天)：' + food.valid_day"></uni-list-item>
-				<uni-list-item :title="'类别：' + food.category_title"></uni-list-item>
+				<uni-list-item :title="'类别：' + food.cate_1 + '  ' + food.cate_2"></uni-list-item>
 				<uni-list-item :title="'厨师：' + food.cook_name"></uni-list-item>
 			</uni-list>
 		</view>
@@ -70,7 +70,7 @@
 			async getFoodInfo(food_id) {
 				const {
 					data: res
-				} = await uni.$http.get('/food/detail?food_id=' + food_id)
+				} = await uni.$http.get('/food/' + food_id)
 				if (res.status !== 200)
 					return uni.$showMsg()
 				this.food = res.message

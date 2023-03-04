@@ -2,17 +2,21 @@
 	<view>
 		<!-- 使用自定义的搜索组件 -->
 		<my-search @click="gotoSearch"></my-search>
-			<view class="cate-list" v-for="(item, i1) in cateList" :key="i1">
-				<!-- 一级列表 -->
-				<uni-section :title="item.cate_1" type="line" padding>
-					<uni-grid :column="4" :highlight="true">
-						<uni-grid-item v-for="(cate_2, i2) in item.cate_2_list" :key="i2">
+		<view class="cate-list" v-for="(item, i1) in cateList" :key="i1">
+			<!-- 一级列表 -->
+			<uni-section :title="item.cate_1" type="line" padding titleFontSize="18px">
+				<uni-grid :column="4" :highlight="true">
+					<uni-grid-item v-for="(cate_2, i2) in item.cate_2_list" :key="i2">
+						<view class="cate-2-item" @click="gotoFoodList(cate_2)">
+							<view class="cate-2-img">
+								<uni-icons type="shop" :size="40" color="#777"></uni-icons>
+							</view>
 							<text>{{cate_2}}</text>
-						</uni-grid-item>
-					</uni-grid>
-					
-				</uni-section>
-			</view>
+						</view>
+					</uni-grid-item>
+				</uni-grid>
+
+			</uni-section>
 		</view>
 	</view>
 </template>
@@ -52,9 +56,9 @@
 				this.scrollTop = this.scrollTop === 0 ? 0.1 : 0
 			},
 			// 跳转到商品列表
-			gotoGoodsList(item) {
+			gotoFoodList(cate_2) {
 				uni.navigateTo({
-					url: '/subpkg/goods_list/goods_list?cid=' + item.cat_id
+					url: '/subpkg/food_list/food_list?cate=' + cate_2
 				})
 			},
 			gotoSearch() {
@@ -68,62 +72,62 @@
 </script>
 
 <style lang="scss">
-	.scroll-view-container {
+	.cate-2-item {
+
 		display: flex;
-		flex-shrink: 0;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 
-		.left-scroll-view {
-			width: 100px;
-
-			.left-scroll-view-item {
-				background-color: #F7F7F7;
-				line-height: 50px;
-				text-align: center;
-				font-size: 12px;
-
-				// &同时包含两个类名
-				&.active {
-					background-color: #FFFFFF;
-					position: relative;
-
-					&::before {
-						content: ' ';
-						display: block;
-						width: 3px;
-						height: 30px;
-						background-color: #C00000;
-						position: absolute;
-						top: 25%;
-						left: 0;
-						// transform: translateY(-50%);
-					}
-				}
-			}
+		text {
+			text-align: center;
+			font-size: 16px;
 		}
-		
-		.right-scroll-view {
-			flex-shrink: 0;
+
+
+		.cate-2-img {
+			margin-top: 10px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 	}
 
-	// .right-scroll-view {
-	// 	.cate-2-list {
-	// 		display: flex;
-	// 		flex-wrap: wrap;
 
-	// 		.cate-2-item {
-	// 			width: 40%;
-	// 			display: flex;
-	// 			flex-direction: column;
-	// 			justify-content: center;
-	// 			align-items: center;
-	// 			padding: 5px 5px;
-	// 			// margin-bottom: 10px;
-	// 			border: 1px solid #cfcfcf;
-	// 			text {
-	// 				font-size: 18px;
+	// .scroll-view-container {
+	// 	display: flex;
+
+	// 	.left-scroll-view {
+	// 		width: 100px;
+
+	// 		.left-scroll-view-item {
+	// 			background-color: #F7F7F7;
+	// 			line-height: 50px;
+	// 			text-align: center;
+	// 			font-size: 12px;
+
+	// 			// &同时包含两个类名
+	// 			&.active {
+	// 				background-color: #FFFFFF;
+	// 				position: relative;
+
+	// 				&::before {
+	// 					content: ' ';
+	// 					display: block;
+	// 					width: 3px;
+	// 					height: 30px;
+	// 					background-color: #C00000;
+	// 					position: absolute;
+	// 					top: 25%;
+	// 					left: 0;
+	// 					// transform: translateY(-50%);
+	// 				}
 	// 			}
 	// 		}
+	// 	}
+
+	// 	.right-scroll-view {
+	// 		flex-shrink: 0;
 	// 	}
 	// }
 </style>
